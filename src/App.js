@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Menu from "./pages/Menu.js";
+import About from "./pages/About.js";
+import Tutorial from "./pages/Tutorial";
+import Game from "./pages/Game";
+import React from "react";
+import Testzindex from "./pages/Testzindex";
+import LittleMenu from "./components/LittleMenu";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <LittleMenu />
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/game" element={<Game />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="/test" element={<Testzindex />} />
+      </Routes>
+    </>
   );
 }
 
