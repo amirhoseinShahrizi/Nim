@@ -76,6 +76,18 @@ const SubmitButton = styled.button`
   bottom: 15%;
   cursor: pointer;
 `;
+const DisabledSubmitButton = styled.button`
+  width: 20vw;
+  height: 5.5vh;
+  font-size: x-large;
+  color: white;
+  border-radius: 20px;
+  border-color: transparent;
+  background-color: #3d4974;
+  position: absolute;
+  bottom: 15%;
+  opacity: 60%;
+`;
 
 const PlayerRectangleRight = styled.div`
   width: 50%;
@@ -148,7 +160,7 @@ const Player2Text = styled.h1`
   right: 4%;
 `;
 
-function GameBoard({ circlesRemain, setCirclesRemain }) {
+function GameBoard({ circlesRemain, setCirclesRemain, setYourTurn, yourTurn }) {
   // const [lcs, setLcs] = useState(true);
   // const [scs, setScs] = useState([]);
 
@@ -246,6 +258,7 @@ function GameBoard({ circlesRemain, setCirclesRemain }) {
     });
     setPlayerRectangleSide(!playerRectangleSide);
     setCirclesRemain(circlesRemain - selectedCirclesList.length);
+    setYourTurn(!yourTurn);
     console.log(circlesRemain - selectedCirclesList.length);
     // console.log(circleExtState);
   };
@@ -253,7 +266,7 @@ function GameBoard({ circlesRemain, setCirclesRemain }) {
   useEffect(() => {
     createCirclesExistanceArray();
     // console.log(circleExistanceArray);
-  }, []);
+  }, [yourTurn]);
 
   return (
     <Bg>
@@ -261,32 +274,33 @@ function GameBoard({ circlesRemain, setCirclesRemain }) {
         <AllCirclesContainer>
           {range(1, 4, 1).map((row) => (
             <LittleCirclesRow key={row}>
-              {range(1, row * 2 - 1, 1).map(
-                (circleNum) =>
-                  circleExtState[(row - 1) * (row - 1) + circleNum - 1] ? (
-                    <LittleCircles
-                      key={(row - 1) * (row - 1) + circleNum - 1}
-                      onClick={(event) =>
-                        littleCircleOnClick(event, row, circleNum)
-                      }
-                    />
-                  ) : (
-                    <HiddenLittleCircles
-                      key={(row - 1) * (row - 1) + circleNum - 1}
-                    />
-                  )
-
-                // <LittleCircles
-                //   key={(row - 1) * (row - 1) + circleNum - 1}
-                //   onClick={(event) =>
-                //     littleCircleOnClick(event, row, circleNum)
-                //   }
-                // />
+              {range(1, row * 2 - 1, 1).map((circleNum) =>
+                circleExtState[(row - 1) * (row - 1) + circleNum - 1] ? (
+                  <LittleCircles
+                    key={(row - 1) * (row - 1) + circleNum - 1}
+                    onClick={
+                      yourTurn
+                        ? (event) => littleCircleOnClick(event, row, circleNum)
+                        : () => {}
+                    }
+                    style={
+                      yourTurn ? { cursor: "pointer" } : { cursor: "default" }
+                    }
+                  />
+                ) : (
+                  <HiddenLittleCircles
+                    key={(row - 1) * (row - 1) + circleNum - 1}
+                  />
+                )
               )}
             </LittleCirclesRow>
           ))}
         </AllCirclesContainer>
-        <SubmitButton onClick={() => submitOnClick()}>Submit</SubmitButton>
+        {yourTurn ? (
+          <SubmitButton onClick={() => submitOnClick()}>Submit</SubmitButton>
+        ) : (
+          <DisabledSubmitButton disabled={true}>Submit</DisabledSubmitButton>
+        )}
       </MainCircle>
       <ToastContainer />
       {playerRectangleSide ? <PlayerRectangleRight /> : <PlayerRectangleLeft />}

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-import LittleMenu from "../components/LittleMenu";
+// import LittleMenu from "../components/LittleMenu";
 import ArrowLeftS from "../images/ArrowLeft.svg";
 import ArrowRightS from "../images/ArrowRight.svg";
 // import { IoArrowBackCircleOutline } from "react-icons/io5";
@@ -60,8 +60,15 @@ const TutorPageNumber = styled.h1`
 
 const LittleCircle = styled.div`
   aspect-ratio: 1 / 1;
-  background-color: black;
+  background-color: #3d4973;
   opacity: 35%;
+  border-radius: 50%;
+  width: 1vw;
+`;
+const SelectedLittleCircle = styled.div`
+  aspect-ratio: 1 / 1;
+  background-color: #3d4973;
+  opacity: 60%;
   border-radius: 50%;
   width: 1vw;
 `;
@@ -93,12 +100,40 @@ const TutorialText = styled.p`
   align-items: center;
 `;
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 1:
+      return {
+        first: true,
+        second: false,
+        third: false,
+      };
+    case 2:
+      return {
+        first: false,
+        second: true,
+        third: false,
+      };
+    case 3:
+      return {
+        first: false,
+        second: false,
+        third: true,
+      };
+  }
+};
+
 function Tutorial() {
   const tutorialTexts = [
     "Pick the last circle and win!",
     "In every turn, you can pick circles out of only one row.",
     "You are free to pick as many circles as you want from one row. GLHF",
   ];
+  const [state, dispatch] = useReducer(reducer, {
+    first: true,
+    second: false,
+    third: false,
+  });
 
   const [tutorNum, setTutorNum] = useState(1);
   const [TutorText, setTutorText] = useState(tutorialTexts[0]);
@@ -106,16 +141,20 @@ function Tutorial() {
   const increaseTutorNum = () => {
     if (tutorNum <= 2) {
       setTutorNum(tutorNum + 1);
+      dispatch({ type: tutorNum + 1 });
     } else {
       setTutorNum(1);
+      dispatch({ type: 1 });
     }
   };
 
   const decreaseTutorNum = () => {
     if (2 <= tutorNum) {
       setTutorNum(tutorNum - 1);
+      dispatch({ type: tutorNum - 1 });
     } else {
       setTutorNum(3);
+      dispatch({ type: 3 });
     }
   };
 
@@ -132,9 +171,9 @@ function Tutorial() {
         <RightArrow src={ArrowRightS} onClick={() => increaseTutorNum()} />
         <TutorPageNumber>{tutorNum}</TutorPageNumber>
         <CirclesContainer>
-          <LittleCircle />
-          <LittleCircle />
-          <LittleCircle />
+          {state.first ? <SelectedLittleCircle /> : <LittleCircle />}
+          {state.second ? <SelectedLittleCircle /> : <LittleCircle />}
+          {state.third ? <SelectedLittleCircle /> : <LittleCircle />}
         </CirclesContainer>
       </MainCircle>
     </Bg>
