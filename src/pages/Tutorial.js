@@ -3,7 +3,14 @@ import styled from "styled-components";
 // import LittleMenu from "../components/LittleMenu";
 import ArrowLeftS from "../images/ArrowLeft.svg";
 import ArrowRightS from "../images/ArrowRight.svg";
-// import { IoArrowBackCircleOutline } from "react-icons/io5";
+import {
+  IoArrowBackCircleOutline,
+  IoArrowForwardCircleOutline,
+} from "react-icons/io5";
+// import {
+//   IoArrowBackCircleSharp,
+//   IoArrowForwardCircleSharp,
+// } from "react-icons/io5";
 
 const Bg = styled.div`
   background-color: #3d4974;
@@ -26,21 +33,29 @@ const MainCircle = styled.div`
   position: fixed;
 `;
 
-const LeftArrow = styled.img`
+const LeftArrow = styled.div`
   aspect-ratio: 1 / 1;
   width: 2.5vw;
   opacity: 64%;
   position: absolute;
   left: 2%;
   cursor: pointer;
+
+  :hover {
+    opacity: 75%;
+  }
 `;
-const RightArrow = styled.img`
+const RightArrow = styled.div`
   aspect-ratio: 1 / 1;
   width: 2.5vw;
   opacity: 64%;
   position: absolute;
-  right: 2%;
+  right: 3%;
   cursor: pointer;
+
+  :hover {
+    opacity: 75%;
+  }
 `;
 // const RightArrowDiv = styled.div`
 //   aspect-ratio: 1 / 1;
@@ -128,7 +143,7 @@ function Tutorial() {
   const tutorialTexts = [
     "Pick the last circle and win!",
     "In every turn, you can pick circles out of only one row.",
-    "You are free to pick as many circles as you want from one row. GLHF",
+    "You are free to pick as many circles as you want from one row. GLHF ✌🏻",
   ];
   const [state, dispatch] = useReducer(reducer, {
     first: true,
@@ -168,8 +183,15 @@ function Tutorial() {
       {/* <LittleMenu /> */}
       <MainCircle>
         <TutorialText>{TutorText}</TutorialText>
-        <LeftArrow src={ArrowLeftS} onClick={() => decreaseTutorNum()} />
-        <RightArrow src={ArrowRightS} onClick={() => increaseTutorNum()} />
+        {/* <LeftArrow src={ArrowLeftS} onClick={() => decreaseTutorNum()} /> */}
+        <LeftArrow onClick={() => decreaseTutorNum()}>
+          <IoArrowBackCircleOutline size={50} color="#3d4973" />
+        </LeftArrow>
+        <RightArrow onClick={() => increaseTutorNum()}>
+          <IoArrowForwardCircleOutline size={50} color="#3d4973" />
+        </RightArrow>
+
+        {/* <RightArrow src={ArrowRightS} onClick={() => increaseTutorNum()} /> */}
         <TutorPageNumber>{tutorNum}</TutorPageNumber>
         <CirclesContainer>
           {state.first ? <SelectedLittleCircle /> : <LittleCircle />}

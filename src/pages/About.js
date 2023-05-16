@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import LittleMenu from "../components/LittleMenu";
 import Me from "../images/me.jpg";
 
 const Bg = styled.div`
@@ -63,7 +62,7 @@ function About() {
         <AMContent>
           <MyImg src={Me} />
           <AMText>
-            <AMHeader>Hey this Moouod👋🏻</AMHeader>
+            <AMHeader>Hey this is Moouod👋🏻</AMHeader>
             <AMPlainText>
               cse student at Shirza University. And this is my bachelor's
             </AMPlainText>

@@ -162,7 +162,7 @@ function Game() {
         } else if (selectedLevel === "Hard") {
           hardLevelComputerPlayer();
         }
-      }, 500);
+      }, 1500);
       return () => clearTimeout(timeout);
     }
   }, [circlesRemain, yourTurn]);
