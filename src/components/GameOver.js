@@ -49,11 +49,13 @@ const PlayAgainBtn = styled.button`
   }
 `;
 
-function GameOver() {
+function GameOver({ playerWin }) {
   return (
     <GameOverModalBG>
       <GameOverModalContainer>
-        <GameOverModalHeader>Victory / Defeat !</GameOverModalHeader>
+        <GameOverModalHeader>
+          {playerWin ? "Victory 👏🏻" : "You Lost! 😢"}
+        </GameOverModalHeader>
         <PlayAgainBtn onClick={() => window.location.reload(false)}>
           Play Again
         </PlayAgainBtn>

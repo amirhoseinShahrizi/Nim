@@ -106,6 +106,45 @@ const PlayerRectangleLeft = styled.div`
   z-index: 1;
 `;
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 0:
+      return { ...state, 0: !state[0] };
+    case 1:
+      return { ...state, 1: !state[1] };
+    case 2:
+      return { ...state, 2: !state[2] };
+    case 3:
+      return { ...state, 3: !state[3] };
+    case 4:
+      return { ...state, 4: !state[4] };
+    case 4:
+      return { ...state, 4: !state[4] };
+    case 5:
+      return { ...state, 5: !state[5] };
+    case 6:
+      return { ...state, 6: !state[6] };
+    case 7:
+      return { ...state, 7: !state[7] };
+    case 8:
+      return { ...state, 8: !state[8] };
+    case 9:
+      return { ...state, 9: !state[9] };
+    case 10:
+      return { ...state, 10: !state[10] };
+    case 11:
+      return { ...state, 11: !state[11] };
+    case 12:
+      return { ...state, 12: !state[12] };
+    case 13:
+      return { ...state, 13: !state[13] };
+    case 14:
+      return { ...state, 14: !state[14] };
+    case 15:
+      return { ...state, 15: !state[15] };
+  }
+};
+
 const Player1Text = styled.h1`
   font-size: 4vh;
   color: white;
@@ -121,14 +160,20 @@ const Player2Text = styled.h1`
   right: 4%;
 `;
 
-function GameBoard({
+const circlesObject = {};
+const createCirclesObject = (row) => {
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < 2 * i + 1; j++) {
+      circlesObject.push({ row: i, column: j, stat: true });
+    }
+  }
+};
+
+function GameBoard2({
   circlesRemain,
   setCirclesRemain,
   setYourTurn,
   yourTurn,
-  setPlayerWin,
-  circleExtState,
-  dispatch,
 }) {
   // const [lcs, setLcs] = useState(true);
   // const [scs, setScs] = useState([]);
@@ -162,8 +207,17 @@ function GameBoard({
       { length: (stop - start) / step + 1 },
       (_, i) => start + i * step
     );
+  const circleExistanceArray = {};
+  const createCirclesExistanceArray = () => {
+    for (let i = 0; i < 16; i++) {
+      circleExistanceArray[i] = true;
+    }
+  };
 
-  // const [playerRectangleSide, setPlayerRectangleSide] = useState(true);
+  const [playerRectangleSide, setPlayerRectangleSide] = useState(true);
+  const [circleExtState, dispatch] = useReducer(reducer, circleExistanceArray);
+  const [littleCircleState, setLittleCircleState] = useState(null);
+  
 
   const selectedCirclesList = [];
 
@@ -218,19 +272,15 @@ function GameBoard({
         type: (circle.row - 1) * (circle.row - 1) + circle.circleNum - 1,
       });
     });
-
-    if (circlesRemain - selectedCirclesList.length === 0 && yourTurn) {
-      setPlayerWin(true);
-    } else {
-      setPlayerWin(false);
-    }
+    setPlayerRectangleSide(!playerRectangleSide);
     setCirclesRemain(circlesRemain - selectedCirclesList.length);
     setYourTurn(!yourTurn);
-    // console.log(circlesRemain - selectedCirclesList.length);
+    console.log(circlesRemain - selectedCirclesList.length);
     // console.log(circleExtState);
   };
 
   useEffect(() => {
+    createCirclesExistanceArray();
     // console.log(circleExistanceArray);
   }, [yourTurn]);
 
@@ -269,11 +319,11 @@ function GameBoard({
         )}
       </MainCircle>
       <ToastContainer />
-      {yourTurn ? <PlayerRectangleRight /> : <PlayerRectangleLeft />}
+      {playerRectangleSide ? <PlayerRectangleRight /> : <PlayerRectangleLeft />}
       <Player1Text>Player 1</Player1Text>
       <Player2Text>Computer</Player2Text>
     </Bg>
   );
 }
 
-export default GameBoard;
+export default GameBoard2;

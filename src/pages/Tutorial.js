@@ -98,6 +98,7 @@ const TutorialText = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 `;
 
 const reducer = (state, action) => {
