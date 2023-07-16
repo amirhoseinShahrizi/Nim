@@ -66,17 +66,145 @@ function Game() {
   const [circlesRemain, setCirclesRemain] = useState(16);
   const [yourTurn, setYourTurn] = useState(true);
   const [playerWin, setPlayerWin] = useState(null);
+  const [whosTurn, setWhosTurn] = useState("player");
 
   let randomRow, randomCircleSelection, circlesRemainedInRow;
 
   const hardLevelComputerPlayer = () => {
-    console.log("level hard move");
-    setYourTurn(!yourTurn);
+    let eA = [];
+    let tEA = [];
+    let check1 = 0;
+    let check2 = 0;
+    let check4 = 0;
+
+    let trueCounter;
+    for (let a = 1; a <= 4; a++) {
+      trueCounter = 0;
+      tEA = [];
+      for (let b = 0; b < a * 2 - 1; b++) {
+        // console.log(circleExtState[(a - 1) * (a - 1) + b]);
+        if (circleExtState[(a - 1) * (a - 1) + b] === true) {
+          trueCounter++;
+        }
+      }
+      // console.log(trueCounter);
+      // console.log(trueCounter % 4);
+      if (trueCounter / 4 >= 1) {
+        tEA.push(4);
+        check4++;
+        trueCounter = trueCounter % 4;
+      }
+      if (trueCounter / 2 >= 1) {
+        tEA.push(2);
+        check2++;
+        trueCounter = trueCounter % 2;
+      }
+      if (trueCounter === 1) {
+        check1++;
+        tEA.push(1);
+      }
+      eA.push(tEA);
+    }
+
+    console.log(eA);
+    console.log(check1);
+    console.log(check2);
+    console.log(check4);
+    let breakFlag = false;
+    if (check1 % 2 === 1) {
+      for (let c = 1; c <= 4; c++) {
+        if (breakFlag) {
+          break;
+        }
+        for (let d = 1; d <= c * 2 - 1; d++) {
+          // console.log("got you");
+          if (breakFlag) {
+            break;
+          }
+          if (eA[c - 1][d - 1] === 1) {
+            let z3 = 0;
+            let z4 = 0;
+            while (z3 < 1) {
+              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
+                dispatch({
+                  type: (c - 1) * (c - 1) + z4,
+                });
+                z3++;
+              }
+              z4++;
+            }
+            breakFlag = true;
+          }
+        }
+      }
+      setCirclesRemain(circlesRemain - 1);
+    } else if (check2 % 2 === 1 && check2 < 2) {
+      for (let c = 1; c <= 4; c++) {
+        if (breakFlag) {
+          break;
+        }
+        for (let d = 1; d <= c * 2 - 1; d++) {
+          // console.log("got you");
+          if (breakFlag) {
+            break;
+          }
+          if (eA[c - 1][d - 1] === 2) {
+            let z3 = 0;
+            let z4 = 0;
+            while (z3 < 2) {
+              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
+                dispatch({
+                  type: (c - 1) * (c - 1) + z4,
+                });
+                z3++;
+              }
+              z4++;
+            }
+            breakFlag = true;
+          }
+        }
+      }
+      setCirclesRemain(circlesRemain - 2);
+    } else if (check4 % 2 === 1) {
+      for (let c = 1; c <= 4; c++) {
+        if (breakFlag) {
+          break;
+        }
+        for (let d = 1; d <= c * 2 - 1; d++) {
+          // console.log("got you");
+          if (breakFlag) {
+            break;
+          }
+          if (eA[c - 1][d - 1] === 4) {
+            let z3 = 0;
+            let z4 = 0;
+            while (z3 < 4) {
+              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
+                dispatch({
+                  type: (c - 1) * (c - 1) + z4,
+                });
+                z3++;
+              }
+              z4++;
+            }
+            breakFlag = true;
+          }
+        }
+      }
+      setCirclesRemain(circlesRemain - 4);
+    } else {
+      //i should randomly choose one cirlce
+      // setCirclesRemain(circlesRemain - 1);
+    }
+    // console.log("level hard move");
+    // setYourTurn(!yourTurn);
   };
+
   const mediumLevelComputerPlayer = () => {
     console.log("level medium move");
-    setYourTurn(!yourTurn);
+    // setYourTurn(!yourTurn);
   };
+
   const easyLevelComputerPlayer = () => {
     if (circlesRemain === 0) {
       setGameContinues(false);
@@ -141,12 +269,15 @@ function Game() {
     setCirclesRemain(circlesRemain - randomCircleSelection);
     // console.log("we reach here");
 
-    setYourTurn(!yourTurn);
+    // setYourTurn(!yourTurn);
   };
 
   useEffect(() => {
     if (circlesRemain === 16) {
       createCirclesExistanceArray();
+      // if (whosTurn === "computer") {
+      //   setYourTurn(!yourTurn);
+      // }
     }
     if (circlesRemain === 0) {
       setGameContinues(false);
@@ -162,6 +293,8 @@ function Game() {
         } else if (selectedLevel === "Hard") {
           hardLevelComputerPlayer();
         }
+
+        setYourTurn(!yourTurn);
       }, 1500);
       return () => clearTimeout(timeout);
     }
@@ -190,6 +323,9 @@ function Game() {
         <LevelSelectionModal
           closeModal={setOpenLevelSelectionModal}
           selectedLevel={setSelectedLevel}
+          setWhosTurn={setWhosTurn}
+          setYourTurn={setYourTurn}
+          whosTurn={whosTurn}
         />
       )}
     </>

@@ -1,51 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const R = styled.div`
-  height: 100px;
-  width: 100px;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
-const R1 = styled(R)`
-  background-color: yellow;
-  position: fixed;
-  left: 0%;
-  top: 0%;
-  z-index: 1;
+const HeadLine = styled.h1``;
+
+const DecreaseBtn = styled.button`
+  width: 80px;
+  height: 30px;
 `;
 
-const R2 = styled(R)`
-  background-color: orange;
-  position: fixed;
-  left: 1%;
-  top: 2%;
-  z-index: 3;
+const Btn = styled.button`
+  width: 40px;
+  height: 40px;
 `;
 
-const R3 = styled(R)`
-  background-color: blue;
-  position: fixed;
-  left: 2%;
-  top: 4%;
-  z-index: 2;
-`;
-
-const C = styled.div`
-  aspect-ratio: 1/1;
-  width: 50px;
-  border-radius: 50%;
-  background-color: green;
+const CheckBox = styled.button`
+  height: 20px;
+  width: 20px;
 `;
 
 function Testzindex() {
+  const [number, setNumber] = useState(100);
+  const [decreaseDeg, setDecreaseDeg] = useState(1);
+  const [checkBoxEnable, setCheckBoxEnable] = useState(true);
+
+  const btnOnClick = (event) => {
+    if (checkBoxEnable) {
+      setNumber(number - decreaseDeg);
+    } else {
+      setNumber(number - 1);
+    }
+  };
+
+  const increaseOnClick = () => {
+    setDecreaseDeg(decreaseDeg + 1);
+  };
+  const decreaseOnClick = () => {
+    setDecreaseDeg(decreaseDeg - 1);
+  };
+
+  const checkBoxOnClick = () => {
+    setCheckBoxEnable(!checkBoxEnable);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      btnOnClick();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [number]);
+
   return (
-    <div>
-      <R1 />
-      <R2>
-        <C></C>
-      </R2>
-      <R3 />
-    </div>
+    <Wrapper>
+      <HeadLine>{number}</HeadLine>
+      <Btn onClick={decreaseOnClick}>-</Btn>
+      <DecreaseBtn onClick={btnOnClick}>click me</DecreaseBtn>
+      <Btn onClick={increaseOnClick}>+</Btn>
+      <CheckBox onClick={() => checkBoxOnClick()}>c</CheckBox>
+    </Wrapper>
   );
 }
 

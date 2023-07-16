@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Switch from "./Switch";
+import { useState } from "react";
 // import { IoSkullSharp, IoHappySharp, IoSadSharp } from "react-icons/io5";
 
 const ModalBG = styled.div`
@@ -20,7 +22,7 @@ const ModalContainer = styled.div`
   border-radius: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   position: fixed;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 50px;
@@ -41,6 +43,22 @@ const LevelsContainer = styled.div`
   align-items: center;
   width: 90%;
   margin-top: 5%;
+`;
+const SwitchContainer = styled.div`
+  width: 55%;
+  position: relative;
+  /* justify-content: center; */
+  bottom: -15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SwitchText = styled.div`
+  color: #3d4974;
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 75%;
 `;
 
 const Levels = styled.h1`
@@ -65,10 +83,21 @@ const LevelsSeparator = styled.h1`
 //   align-items: center;
 // `;
 
-function LevelSelectionModal({ closeModal, selectedLevel }) {
+function LevelSelectionModal({
+  closeModal,
+  selectedLevel,
+  setWhosTurn,
+  setYourTurn,
+  whosTurn,
+}) {
+  const [isSelected, setIsSelected] = useState(false);
   const levelOnClick = (level) => {
-    closeModal(false);
     selectedLevel(level);
+    console.log(whosTurn);
+    if (whosTurn !== "player") {
+      setYourTurn(false);
+    }
+    closeModal(false);
   };
 
   return (
@@ -82,6 +111,19 @@ function LevelSelectionModal({ closeModal, selectedLevel }) {
           <LevelsSeparator>/</LevelsSeparator>
           <Levels onClick={() => levelOnClick("Hard")}>Hard</Levels>
         </LevelsContainer>
+        <SwitchContainer>
+          <SwitchText style={!isSelected ? { opacity: "1" } : {}}>
+            Player Starts
+          </SwitchText>
+          <Switch
+            isSelected={isSelected}
+            setIsSelected={setIsSelected}
+            setWhosTurn={setWhosTurn}
+          />
+          <SwitchText style={!isSelected ? {} : { opacity: "1" }}>
+            Computer Starts
+          </SwitchText>
+        </SwitchContainer>
       </ModalContainer>
     </ModalBG>
   );
