@@ -93,7 +93,7 @@ function LevelSelectionModal({
   const [isSelected, setIsSelected] = useState(false);
   const levelOnClick = (level) => {
     selectedLevel(level);
-    console.log(whosTurn);
+    // console.log(whosTurn);
     if (whosTurn !== "player") {
       setYourTurn(false);
     }

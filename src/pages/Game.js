@@ -70,170 +70,66 @@ function Game() {
 
   let randomRow, randomCircleSelection, circlesRemainedInRow;
   let eA = [];
-  let tEA = [];
   let check1 = 0;
   let check2 = 0;
   let check4 = 0;
 
-  const EEE = () => {
-    while (true) {
-      randomRow = randomNumberInRange(1, 4);
-      circlesRemainedInRow = 0;
-      range(1, randomRow * 2 - 1, 1).map((circleNumber) => {
-        if (
-          circleExtState[
-            (randomRow - 1) * (randomRow - 1) + circleNumber - 1
-          ] === true
-        ) {
-          circlesRemainedInRow++;
-        }
-      });
-      if (circlesRemainedInRow > 0) {
-        break;
-      }
-    }
+  let tea = [];
+  const calculteScore = () => {
+    let score = -Infinity;
+    check1 = 0;
+    check2 = 0;
+    check4 = 0;
 
-    // console.log(randomRow);
-    // console.log(randomCircleSelection);
+    tea.map((x) => {
+      if (x / 4 >= 1) {
+        check4++;
+        x = x % 4;
+      }
+      if (x / 2 >= 1) {
+        check2++;
+        x = x % 2;
+      }
+      if (x === 1) {
+        check1++;
+      }
+    });
 
-    let z1 = 0;
-    let z2 = 0;
-    while (z1 < 1) {
-      if (circleExtState[(randomRow - 1) * (randomRow - 1) + z2] === true) {
-        dispatch({
-          type: (randomRow - 1) * (randomRow - 1) + z2,
-        });
-        z1++;
-      }
-      z2++;
-    }
-
-    setCirclesRemain(circlesRemain - 1);
-  };
-
-  const EEO = () => {
-    let breakFlag = false;
-    if (check4 % 2 === 1) {
-      for (let c = 1; c <= 4; c++) {
-        if (breakFlag) {
-          break;
-        }
-        for (let d = 1; d <= c * 2 - 1; d++) {
-          // console.log("got you");
-          if (breakFlag) {
-            break;
-          }
-          if (eA[c - 1][d - 1] === 4) {
-            let z3 = 0;
-            let z4 = 0;
-            while (z3 < 4) {
-              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
-                dispatch({
-                  type: (c - 1) * (c - 1) + z4,
-                });
-                z3++;
-              }
-              z4++;
-            }
-            breakFlag = true;
-          }
-        }
-      }
-      setCirclesRemain(circlesRemain - 4);
-    } else if (check2 % 2 === 1) {
-      for (let c = 1; c <= 4; c++) {
-        if (breakFlag) {
-          break;
-        }
-        for (let d = 1; d <= c * 2 - 1; d++) {
-          // console.log("got you");
-          if (breakFlag) {
-            break;
-          }
-          if (eA[c - 1][d - 1] === 2) {
-            let z3 = 0;
-            let z4 = 0;
-            while (z3 < 2) {
-              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
-                dispatch({
-                  type: (c - 1) * (c - 1) + z4,
-                });
-                z3++;
-              }
-              z4++;
-            }
-            breakFlag = true;
-          }
-        }
-      }
-      setCirclesRemain(circlesRemain - 2);
-    } else if (check1 % 2 === 1) {
-      for (let c = 1; c <= 4; c++) {
-        if (breakFlag) {
-          break;
-        }
-        for (let d = 1; d <= c * 2 - 1; d++) {
-          // console.log("got you");
-          if (breakFlag) {
-            break;
-          }
-          if (eA[c - 1][d - 1] === 1) {
-            let z3 = 0;
-            let z4 = 0;
-            while (z3 < 1) {
-              if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
-                dispatch({
-                  type: (c - 1) * (c - 1) + z4,
-                });
-                z3++;
-              }
-              z4++;
-            }
-            breakFlag = true;
-          }
-        }
-      }
-      setCirclesRemain(circlesRemain - 1);
+    //scoring
+    if (check1 % 2 === 0 && check2 % 2 === 0 && check4 % 2 === 0) {
+      score = 10;
     } else {
-      //i should randomly choose one cirlce
-      // setCirclesRemain(circlesRemain - 1);
+      score = 0;
+      if (check1 % 2 !== 0) score++;
+      if (check2 % 2 !== 0) score++;
+      if (check4 % 2 !== 0) score++;
     }
-    // console.log("level hard move");
-    // setYourTurn(!yourTurn);
+
+    return score;
   };
 
-  const OOO = () => {
-    let breakFlag = false;
-    for (let c = 1; c <= 4; c++) {
-      if (breakFlag) {
-        break;
-      }
+  const minimax = (ea) => {
+    let bestScore = -Infinity;
+    let bestMoveRow = -1;
+    let bestMoveCirclesNum = -1;
+    let tempScore;
 
-      if (eA[c - 1][0] === 4) {
-        let z3 = 0;
-        let z4 = 0;
-        while (z3 < 3) {
-          if (circleExtState[(c - 1) * (c - 1) + z4] === true) {
-            dispatch({
-              type: (c - 1) * (c - 1) + z4,
-            });
-            z3++;
-          }
-          z4++;
+    for (let z = 0; z < 4; z++) {
+      for (let y = 1; y <= ea[z]; y++) {
+        tea = [...ea];
+        tea[z] -= y;
+        // console.log(tea);
+
+        tempScore = calculteScore(tea);
+        if (bestScore < tempScore) {
+          bestScore = tempScore;
+          bestMoveRow = z;
+          bestMoveCirclesNum = y;
         }
-        breakFlag = true;
       }
     }
-    setCirclesRemain(circlesRemain - 3);
-  };
 
-  const EOO = () => {
-    if (check1 % 2 === 0) {
-    }
-    if (check2 % 2 === 0) {
-    }
-    if (check4 % 2 === 0) {
-    }
+    return [bestMoveRow, bestMoveCirclesNum];
   };
 
   const hardLevelComputerPlayer = () => {
@@ -243,74 +139,39 @@ function Game() {
     }
 
     eA = [];
-    tEA = [];
+
     check1 = 0;
     check2 = 0;
     check4 = 0;
+    let bestMoveRow, bestMoveCirclesNum;
 
     let trueCounter;
     for (let a = 1; a <= 4; a++) {
       trueCounter = 0;
-      tEA = [];
+
       for (let b = 0; b < a * 2 - 1; b++) {
         // console.log(circleExtState[(a - 1) * (a - 1) + b]);
         if (circleExtState[(a - 1) * (a - 1) + b] === true) {
           trueCounter++;
         }
       }
-      // console.log(trueCounter);
-      // console.log(trueCounter % 4);
-      if (trueCounter / 4 >= 1) {
-        tEA.push(4);
-        check4++;
-        trueCounter = trueCounter % 4;
-      }
-      if (trueCounter / 2 >= 1) {
-        tEA.push(2);
-        check2++;
-        trueCounter = trueCounter % 2;
-      }
-      if (trueCounter === 1) {
-        check1++;
-        tEA.push(1);
-      }
-      eA.push(tEA);
+
+      eA.push(trueCounter);
     }
 
-    let determineSatate = (check1 % 2) + (check2 % 2) + (check4 % 2);
-
-    if (determineSatate === 0) {
-      // 1 2 4 are even
-      // easyLevelComputerPlayer();
-      EEE();
-      return;
-    } else if (determineSatate === 1) {
-      EEO();
-    } else if (determineSatate === 2) {
-    } else if (determineSatate === 3) {
-      OOO();
+    [bestMoveRow, bestMoveCirclesNum] = minimax(eA);
+    let z1 = 0;
+    let z2 = 0;
+    while (z1 <= bestMoveCirclesNum - 1) {
+      if (circleExtState[bestMoveRow * bestMoveRow + z2] === true) {
+        dispatch({
+          type: bestMoveRow * bestMoveRow + z2,
+        });
+        z1++;
+      }
+      z2++;
     }
-    // switch (null) {
-    //   case check1 % 2 !== 0 && check2 % 2 !== 0 && check4 % 2 !== 0:
-    //   //convert 4 to 12
-    //   case check1 % 2 === 0 && check2 % 2 === 0 && check4 % 2 === 0:
-    //     easyLevelComputerPlayer();
-    //     console.log("");
-    //     return;
-    // }
-
-    // if (check1 % 2 === 0 && check2 % 2 === 0 && check4 % 2 === 0) {
-    //   //all 3 even
-    //   easyLevelComputerPlayer();
-    //   return;
-    // } else if (check1 % 2 !== 0 && check2 % 2 !== 0 && check4 % 2 !== 0) {
-
-    // }
-
-    console.log(eA);
-    // console.log(check1);
-    // console.log(check2);
-    // console.log(check4);
+    setCirclesRemain(circlesRemain - bestMoveCirclesNum);
   };
 
   const mediumLevelComputerPlayer = () => {
@@ -318,10 +179,13 @@ function Game() {
       setGameContinues(false);
       return;
     }
-
-    console.log("level medium move");
-    easyLevelComputerPlayer();
-    // setYourTurn(!yourTurn);
+    if (randomNumberInRange(1, 2) === 1) {
+      easyLevelComputerPlayer();
+      // console.log("easy");
+    } else {
+      // console.log("hard");
+      hardLevelComputerPlayer();
+    }
   };
 
   const easyLevelComputerPlayer = () => {
