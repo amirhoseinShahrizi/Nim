@@ -52,7 +52,7 @@ const HorizontalLine = styled.div`
 
 const LinkText = styled.text`
   color: #2c3553;
-  font-size: 2vh;
+  font-size: 1vw;
   font-weight: bold;
   opacity: 60%;
 

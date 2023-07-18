@@ -35,8 +35,8 @@ const MainCircle = styled.div`
 
 const LeftArrow = styled.div`
   aspect-ratio: 1 / 1;
-  width: 2.5vw;
-  opacity: 64%;
+  /* width: 2.5vw; */
+  opacity: 50%;
   position: absolute;
   left: 2%;
   cursor: pointer;
@@ -47,8 +47,8 @@ const LeftArrow = styled.div`
 `;
 const RightArrow = styled.div`
   aspect-ratio: 1 / 1;
-  width: 2.5vw;
-  opacity: 64%;
+  /* width: 2.5vw; */
+  opacity: 50%;
   position: absolute;
   right: 3%;
   cursor: pointer;
@@ -185,10 +185,10 @@ function Tutorial() {
         <TutorialText>{TutorText}</TutorialText>
         {/* <LeftArrow src={ArrowLeftS} onClick={() => decreaseTutorNum()} /> */}
         <LeftArrow onClick={() => decreaseTutorNum()}>
-          <IoArrowBackCircleOutline size={50} color="#3d4973" />
+          <IoArrowBackCircleOutline size={"3.5vw"} color="#3d4973" />
         </LeftArrow>
         <RightArrow onClick={() => increaseTutorNum()}>
-          <IoArrowForwardCircleOutline size={50} color="#3d4973" />
+          <IoArrowForwardCircleOutline size={"3.5vw"} color="#3d4973" />
         </RightArrow>
 
         {/* <RightArrow src={ArrowRightS} onClick={() => increaseTutorNum()} /> */}

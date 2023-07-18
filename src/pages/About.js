@@ -29,12 +29,14 @@ const MyImg = styled.img`
   margin-bottom: 5%;
 `;
 
-const AMHeader = styled.h1`
+const AMHeader = styled.p`
   margin-bottom: 2%;
+  font-size: 2.1vw;
+  font-weight: bold;
 `;
 
 const AMPlainText = styled.p`
-  font-size: x-large;
+  font-size: 1.6vw;
 `;
 
 const AMText = styled.div`
