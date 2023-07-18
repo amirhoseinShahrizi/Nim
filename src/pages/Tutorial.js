@@ -70,7 +70,7 @@ const TutorPageNumber = styled.h1`
   color: #3d4973;
   position: absolute;
   bottom: 12%;
-  font-size: 5vw;
+  font-size: 3.5vw;
 `;
 
 const LittleCircle = styled.div`
@@ -108,7 +108,7 @@ const CirclesContainer = styled.div`
 
 const TutorialText = styled.p`
   width: 80%;
-  font-size: 5vw;
+  font-size: 4.5vw;
   color: #3d4973;
   display: flex;
   justify-content: center;
