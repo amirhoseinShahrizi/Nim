@@ -1,16 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-// import LittleMenu from "../components/LittleMenu";
-import ArrowLeftS from "../images/ArrowLeft.svg";
-import ArrowRightS from "../images/ArrowRight.svg";
 import {
   IoArrowBackCircleOutline,
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
-// import {
-//   IoArrowBackCircleSharp,
-//   IoArrowForwardCircleSharp,
-// } from "react-icons/io5";
 
 const Bg = styled.div`
   background-color: #3d4974;
@@ -57,14 +50,6 @@ const RightArrow = styled.div`
     opacity: 75%;
   }
 `;
-// const RightArrowDiv = styled.div`
-//   aspect-ratio: 1 / 1;
-//   width: 2.5vw;
-//   opacity: 64%;
-//   position: absolute;
-//   right: 2%;
-//   cursor: pointer;
-// `;
 
 const TutorPageNumber = styled.h1`
   color: #3d4973;
@@ -87,13 +72,6 @@ const SelectedLittleCircle = styled.div`
   border-radius: 50%;
   width: 1vw;
 `;
-// const SelectedCircle = styled.div`
-//   aspect-ratio: 1 / 1;
-//   background-color: black;
-//   opacity: 50%;
-//   border-radius: 50%;
-//   width: 1vw;
-// `;
 
 const CirclesContainer = styled.div`
   display: flex;
@@ -117,7 +95,7 @@ const TutorialText = styled.p`
   text-align: center;
 
   opacity: 0;
-  transition: opacity ease-in-out 0.4s;
+  transition: opacity ease-in-out 0.2s;
 `;
 
 const TT1 = styled(TutorialText)``;

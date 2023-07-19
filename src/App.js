@@ -5,7 +5,6 @@ import About from "./pages/About.js";
 import Tutorial from "./pages/Tutorial";
 import Game from "./pages/Game";
 import React from "react";
-import Testzindex from "./pages/Testzindex";
 import LittleMenu from "./components/LittleMenu";
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
         <Route path="/game" element={<Game />} />
         <Route path="/about" element={<About />} />
         <Route path="/tutorial" element={<Tutorial />} />
-        <Route path="/test" element={<Testzindex />} />
       </Routes>
     </>
   );

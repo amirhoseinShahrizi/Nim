@@ -2,7 +2,6 @@ import React, { useEffect, useReducer, useState } from "react";
 import GameBoard from "../components/GameBoard";
 import LevelSelectionModal from "../components/LevelSelectionModal";
 import GameOver from "../components/GameOver";
-import GameBoard2 from "../components/GameBoard2";
 
 const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
