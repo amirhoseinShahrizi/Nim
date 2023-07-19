@@ -17,6 +17,8 @@ const MainCircle = styled.div`
   margin: 1%;
   z-index: 100;
   border: 3px solid #3d4974;
+
+  transition: opacity ease-in-out 0.5s;
 `;
 
 const LinksSecondRow = styled.div`

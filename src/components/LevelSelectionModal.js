@@ -58,7 +58,7 @@ const SwitchText = styled.div`
   color: #3d4974;
   font-size: 1.5rem;
   font-weight: bold;
-  opacity: 75%;
+  opacity: 50%;
 `;
 
 const Levels = styled.h1`
