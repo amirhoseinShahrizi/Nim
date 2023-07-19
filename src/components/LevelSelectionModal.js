@@ -29,8 +29,9 @@ const ModalContainer = styled.div`
   /* border: 2px solid #3d4974; */
 `;
 
-const ModalHeader = styled.h1`
-  font-size: 3.5rem;
+const ModalHeader = styled.p`
+  font-size: 3.75vw;
+  font-weight: bold;
   color: #3d4974;
   position: absolute;
   top: 20%;
@@ -56,7 +57,7 @@ const SwitchContainer = styled.div`
 
 const SwitchText = styled.div`
   color: #3d4974;
-  font-size: 1.5rem;
+  font-size: 1.5vw;
   font-weight: bold;
   opacity: 50%;
 `;
@@ -64,7 +65,7 @@ const SwitchText = styled.div`
 const Levels = styled.h1`
   color: #3d4974;
   cursor: pointer;
-  font-size: 2.5rem;
+  font-size: 2.75vw;
   opacity: 70%;
   :hover {
     opacity: 1;
@@ -73,7 +74,7 @@ const Levels = styled.h1`
 
 const LevelsSeparator = styled.h1`
   color: #3d4974;
-  font-size: 2.75rem;
+  font-size: 3vw;
 `;
 
 // const LevelsTextAndIcon = styled.div`
