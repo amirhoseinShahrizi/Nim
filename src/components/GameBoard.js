@@ -67,7 +67,7 @@ const HiddenLittleCircles = styled.div`
 const SubmitButton = styled.button`
   width: 20vw;
   height: 5.5vh;
-  font-size: x-large;
+  font-size: 2vw;
   color: white;
   border-radius: 20px;
   border-color: transparent;
@@ -79,7 +79,7 @@ const SubmitButton = styled.button`
 const DisabledSubmitButton = styled.button`
   width: 20vw;
   height: 5.5vh;
-  font-size: x-large;
+  font-size: 2vw;
   color: white;
   border-radius: 20px;
   border-color: transparent;
@@ -107,14 +107,14 @@ const PlayerRectangleLeft = styled.div`
 `;
 
 const Player1Text = styled.h1`
-  font-size: 4vh;
+  font-size: 2vw;
   color: white;
   position: absolute;
   bottom: 7%;
   left: 4%;
 `;
 const Player2Text = styled.h1`
-  font-size: 4vh;
+  font-size: 2vw;
   color: white;
   position: absolute;
   top: 7%;
@@ -270,7 +270,7 @@ function GameBoard({
       </MainCircle>
       <ToastContainer />
       {yourTurn ? <PlayerRectangleRight /> : <PlayerRectangleLeft />}
-      <Player1Text>Player 1</Player1Text>
+      <Player1Text>Your Turn</Player1Text>
       <Player2Text>Computer</Player2Text>
     </Bg>
   );

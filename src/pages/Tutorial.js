@@ -107,6 +107,7 @@ const CirclesContainer = styled.div`
 `;
 
 const TutorialText = styled.p`
+  position: absolute;
   width: 80%;
   font-size: 4.5vw;
   color: #3d4973;
@@ -114,7 +115,14 @@ const TutorialText = styled.p`
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  opacity: 0;
+  transition: opacity ease-in-out 0.4s;
 `;
+
+const TT1 = styled(TutorialText)``;
+const TT2 = styled(TutorialText)``;
+const TT3 = styled(TutorialText)``;
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -180,10 +188,17 @@ function Tutorial() {
 
   return (
     <Bg>
-      {/* <LittleMenu /> */}
       <MainCircle>
-        <TutorialText>{TutorText}</TutorialText>
-        {/* <LeftArrow src={ArrowLeftS} onClick={() => decreaseTutorNum()} /> */}
+        <TT1 style={tutorNum === 1 ? { opacity: "1" } : {}}>
+          {tutorialTexts[0]}
+        </TT1>
+        <TT2 style={tutorNum === 2 ? { opacity: "1" } : {}}>
+          {tutorialTexts[1]}
+        </TT2>
+        <TT3 style={tutorNum === 3 ? { opacity: "1" } : {}}>
+          {tutorialTexts[2]}
+        </TT3>
+
         <LeftArrow onClick={() => decreaseTutorNum()}>
           <IoArrowBackCircleOutline size={"3.5vw"} color="#3d4973" />
         </LeftArrow>
@@ -191,7 +206,6 @@ function Tutorial() {
           <IoArrowForwardCircleOutline size={"3.5vw"} color="#3d4973" />
         </RightArrow>
 
-        {/* <RightArrow src={ArrowRightS} onClick={() => increaseTutorNum()} /> */}
         <TutorPageNumber>{tutorNum}</TutorPageNumber>
         <CirclesContainer>
           {state.first ? <SelectedLittleCircle /> : <LittleCircle />}
